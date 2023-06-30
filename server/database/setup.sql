@@ -7,13 +7,13 @@ CREATE TABLE diary_entries (
     content VARCHAR NOT NULL,
     category VARCHAR (50) NOT NULL,
     date_time_entry TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL ,
-    PRIMARY KEY (diary_id)
+    PRIMARY KEY (entry_id)
 );
 
 INSERT INTO diary_entries (content, category) VALUES 
 ('This is a good day', 'diary'),
 ('This is a bad day','diary'),
-('This is a note.','note')
+('This is a note.','note');
 
 CREATE TABLE users(
     user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
