@@ -1,5 +1,5 @@
 const Token = require("../models/Token");
-const User = require("../controllers/user.js");
+const User = require("../controllers/UserController.js");
 
 
 async function authenticator(req, res, next) {
