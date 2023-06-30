@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
-
+const Token = require("../models/Token");
 class UserController {
   static async register(req, res) {
     try {
@@ -20,24 +20,12 @@ class UserController {
   }
   static async login(req, res) {
     const { username, password } = req.body;
-    console.log(username, password);
     try {
       const user = await User.findByUsername(username, password);
+      console.log(user);
       if (user.message === "Login successful") {
-        
-          const token = await Token.create(user.id);      
-          res.status(200).json({ authenticated: true, token: token.token }); //its not going to work
-
-          // const data = req.body;
-          // const user = await User.getOneByUsername(data.username)
-          // const authenticated = await bcrypt.compare(data.password, user.password);
-          // console.log(authenticated, "AUTHENTICATED" );
-          // if (!authenticated) {
-          //     throw new Error("Incorrect credentials.");
-          // } else {
-          //     const token = await Token.create(user.id);
-          //     res.status(200).json({ authenticated: true, token: token.token });
-          // }
+        const token = await Token.create(user.user.user_id);
+        res.status(200).json({ authenticated: true, token: token.token });
       } else {
         res.status(400).json({ message: user.message });
       }

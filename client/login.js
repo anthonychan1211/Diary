@@ -19,7 +19,8 @@ submitButton.addEventListener("click", async (e) => {
     });
 
     if (res.status === 200) {
-      alert("Login succesfully");
+      const result = await res.json();
+      localStorage.setItem("token", result.token);
       window.location.replace("/client/index.html");
     }
   } catch (error) {

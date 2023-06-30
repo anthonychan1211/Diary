@@ -16,7 +16,9 @@
 body {
   background-color: var(--background-color);
 }
-
+input {
+  color: black;
+}
 button {
   border: none;
   border-radius: 12px;
