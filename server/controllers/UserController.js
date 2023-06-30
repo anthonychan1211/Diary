@@ -24,7 +24,20 @@ class UserController {
     try {
       const user = await User.findByUsername(username, password);
       if (user.message === "Login successful") {
-        res.status(200).json({ message: user.message });
+        
+          const token = await Token.create(user.id);      
+          res.status(200).json({ authenticated: true, token: token.token }); //its not going to work
+
+          // const data = req.body;
+          // const user = await User.getOneByUsername(data.username)
+          // const authenticated = await bcrypt.compare(data.password, user.password);
+          // console.log(authenticated, "AUTHENTICATED" );
+          // if (!authenticated) {
+          //     throw new Error("Incorrect credentials.");
+          // } else {
+          //     const token = await Token.create(user.id);
+          //     res.status(200).json({ authenticated: true, token: token.token });
+          // }
       } else {
         res.status(400).json({ message: user.message });
       }
