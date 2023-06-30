@@ -4,11 +4,11 @@ const cors = require("cors");
 const entryRoutes = require("./routes/entryRoutes");
 const userRoutes = require("./routes/userRoutes");
 const app = express();
-const logRoutes = require('./middleware/logger');
+const logRoutes = require("./middleware/logger");
 
 app.use(cors());
 app.use(express.json());
-api.use(logRoutes);
+app.use(logRoutes);
 
 app.use("/entries", entryRoutes);
 app.use("/users", userRoutes);
