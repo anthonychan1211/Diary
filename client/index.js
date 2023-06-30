@@ -1,67 +1,49 @@
 const container = document.querySelector(".container");
 
 // receive the data from server
-const data = await fetch("http://localhost:3000/plays");
-const plays = await data.json();
+const data = await fetch("http://localhost:3000/entries");
+const entries = await data.json();
 
 // create card for each play
-plays.forEach((play) => {
-  const {
-    play_id,
-    play_name,
-    price,
-    date_time_played,
-    actor_list,
-    duration,
-    cover_photo,
-    sypnosis,
-  } = play;
+entries.forEach((entry) => {
+  const { content, date_time_entry, category } = entry;
   const card = document.createElement("div");
   card.className = "card";
-  // create the img container
-  const imgContainer = document.createElement("div");
-  imgContainer.className = "img-container";
-  card.append(imgContainer);
-  // append the img
-  const playImg = document.createElement("img");
-  playImg.src = cover_photo;
-  imgContainer.append(playImg);
-  //   create the title container
-  const titleContainer = document.createElement("div");
-  titleContainer.className = "title-container";
-  card.append(titleContainer);
-  // append the play title
-  const playName = document.createElement("h3");
-  playName.textContent = play_name;
-  playName.className = "play-title";
-  titleContainer.append(playName);
 
   // append date and time
-  const date = date_time_played.slice(0, 10);
-  const time = date_time_played.slice(11, 16);
+  const date = date_time_entry.slice(0, 10);
+  const time = date_time_entry.slice(11, 16);
 
-  const dateDOM = document.createElement("p");
+  const dateDOM = document.createElement("h2");
   dateDOM.className = "date";
-  dateDOM.innerHTML = `${date} <br>${time}`;
-  titleContainer.append(dateDOM);
-  // append the price
-  const priceDOM = document.createElement("p");
-  priceDOM.className = "price";
-  priceDOM.textContent = `£ ${(price / 100).toFixed(2)}`;
-  card.append(priceDOM);
+  dateDOM.textContent = date;
+  card.append(dateDOM);
+  const timeDOM = document.createElement("h3");
+  timeDOM.className = "time";
+  timeDOM.textContent = time;
+  card.append(timeDOM);
+  // append the entry category
+  const categoryDOM = document.createElement("p");
+  categoryDOM.textContent = category;
+  categoryDOM.className = "category";
+  card.append(categoryDOM);
+  //   create the title container
+  const contentDOM = document.createElement("p");
+  contentDOM.className = "content";
+  contentDOM.textContent = content;
+  card.append(contentDOM);
 
   //   create card onClick show detail listener
 
-  card.addEventListener("click", (e) => showDetails(e, play));
+  card.addEventListener("click", (e) => showDetails(e, entry));
 
   //   append the card onto container
   container.append(card);
   //   check if user is admin then run the following function
-  createRemoveButton(card, play);
+  // createRemoveButton(card, play);
 });
 
 function showDetails(e, play) {
-  console.log(e.currentTarget);
   const outerModal = document.createElement("div");
   outerModal.className = "outer-modal";
   const innerModal = document.createElement("div");
@@ -75,19 +57,20 @@ function showDetails(e, play) {
   rightSection.className = "modal-right";
   innerModal.append(leftSection);
   innerModal.append(rightSection);
-  // put img container into left section
-  const imgContainer = document.createElement("div");
-  imgContainer.className = "modal-img-container";
-  leftSection.append(imgContainer);
-  // append the img
-  const playImg = document.createElement("img");
-  playImg.src = play.cover_photo;
-  imgContainer.append(playImg);
-  //   append the name
-  const playName = document.createElement("h2");
-  playName.textContent = play.play_name;
-  playName.className = "modal-play-title";
-  leftSection.append(playName);
+
+  // append date and time
+  // const date = date_time_entry.slice(0, 10);
+  // const time = date_time_entry.slice(11, 16);
+
+  const dateDOM = document.createElement("h2");
+  dateDOM.className = "date";
+  dateDOM.textContent = date;
+  card.append(dateDOM);
+  const timeDOM = document.createElement("h3");
+  timeDOM.className = "time";
+  timeDOM.textContent = time;
+  card.append(timeDOM);
+
   //   append the summary
   const summary = document.createElement("p");
 
