@@ -4,10 +4,9 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE diary_entries (
     entry_id INT GENERATED ALWAYS AS IDENTITY,
-    text VARCHAR (200),
-    category VARCHAR (50),
-    date DATE,
-    time TIME,
+    text VARCHAR (200) NOT NULL,
+    category VARCHAR (50) NOT NULL,
+    date_time_entry TIMESTAMPTZ NOT NULL,
     PRIMARY KEY (diary_id)
 );
 
